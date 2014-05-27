@@ -1,6 +1,4 @@
 <?php 
-	error_reporting(0);
-
 	//Incluyo la Clase
 	require 'CalcularMacronutrientes.php';
 
