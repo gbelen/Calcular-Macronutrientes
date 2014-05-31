@@ -7,15 +7,6 @@ class Macronutrientes {
 	private $amamantando;
 
 
-	public function __construct($poblacion='Sedentario', $embarazada = false, $amamantando = false){
-
-		$this->poblacion = $poblacion;
-		$this->embarazada = $embarazada;
-		$this->amamantando = $amamantando;
-
-	}
-
-
 	//Aqui obtengo los Carbohidratos (CHO)
 	public function getCarbohidratos($lb, $poblacion){
 		//79.55 * 3.5 = 278.43 g/kg
@@ -30,7 +21,7 @@ class Macronutrientes {
 			case 'Vigoroso':
 				$poblacion = 6.5;
 				break;
-			default:
+			case 'Sedentario':
 				$poblacion = 3.5;
 				break;
 		}
@@ -71,7 +62,7 @@ class Macronutrientes {
 			case 'Ninio':
 				$poblacion = 2.0;
 				break;			
-			default:
+			case 'Sedentario':
 				$poblacion = 0.95;
 				break;
 		}
@@ -105,7 +96,7 @@ class Macronutrientes {
 			case 'Obeso':
 				$poblacion = 0.20;
 				break;
-			default:
+			case 'Enfermedad':
 				$poblacion = 0.20;
 				break;
 		}
@@ -131,4 +122,14 @@ class Macronutrientes {
 
 
 
-}//fin Class
+
+	private function poblacion(){
+		//Aqui pondre todos los switch anidados.
+
+
+
+		
+	}
+
+
+}
