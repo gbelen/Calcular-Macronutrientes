@@ -108,3 +108,12 @@ h3{
 	margin-bottom: 10px;
 	font-size: 15px;
 }
+
+legend, small{
+	font-weight: bold;
+}
+
+p{
+	font-size: 11px;
+	line-height: 15px;
+}
