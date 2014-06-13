@@ -68,19 +68,9 @@ class Macronutrientes {
 
 	private function convertirkg($lb){
 		$kg = $lb / $this->kg;
-		//$kg = number_format($kg);
 
 		return $kg;
 	}
 
 
 }//Fin Clase
-
-
-/*
-//Instanciarla
-$Obj = new Macronutrientes();
-$Macro = $Obj->getMacronutrientes(173);
-
-echo $Macro['calProteinas'];
-*/
