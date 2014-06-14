@@ -3,14 +3,14 @@ class Macronutrientes {
 	
 	private $kg = 2.2;
 
-	public function getMacronutrientes($peso){
+	public function getMacronutrientes($peso, $mode = NULL){
 
-		$Proteinas 		= 	$this->getProteinas($peso);
-		$Carbohidratos 	= 	$this->getCarbohidratos($Proteinas[1]);
-		$Grasas 		= 	$this->getGrasas($Proteinas[1]);
+		$Proteinas 		= 	$this->getProteinas($peso, $mode);
+		$Carbohidratos 	= 	$this->getCarbohidratos($Proteinas[2], $mode);
+		$Grasas 		= 	$this->getGrasas($Proteinas[2], $mode);
 
 
-		$valores = array('grProteinas'=>$Proteinas[0], 'calProteinas'=>$Proteinas[1],
+		$valores = array('grProteinas'=>$Proteinas[0], 'calProteinas'=>$Proteinas[1], 'caloriasTotales'=>$Proteinas[2],
 						 'grCarbohidratos'=>$Carbohidratos[0], 'calCarbohidratos'=>$Carbohidratos[1],
 						 'grGrasas'=>$Grasas[0], 'calGrasas'=>$Grasas[1]);
 
@@ -19,7 +19,7 @@ class Macronutrientes {
 
 
 	//Calcular Proteinas
-	private function getProteinas($peso){
+	private function getProteinas($peso, $mode=NULL){
 
 		//Aqui me devuelve el peso en kilogramo
 		$pesoKilogramo = $this->convertirkg($peso);
@@ -28,9 +28,25 @@ class Macronutrientes {
 
 		//Aqui obtengo las calorias provenientes de proteinas
 		$caloriasProteina = $gramosProteina * 4;
-		$caloriasProteina /= 0.30;
+		
+		$caloriasTotales = $caloriasProteina / 0.30;
 
-		$valores = array($gramosProteina, $caloriasProteina);
+		//Si Modo sera Aumento de Peso
+		if($mode == 'AUMENTO'){
+			$caloriasTotales  += 500;
+			$caloriasProteina =  $caloriasTotales * 0.30;
+			$gramosProteina	  =  $caloriasProteina/4;
+
+		}else if($mode == 'PERDIDA'){
+
+			$caloriasTotales  -= 500;
+			$caloriasProteina =  $caloriasTotales * 0.30;
+			$gramosProteina	  =  $caloriasProteina/4;			
+		}
+
+
+		$valores = array($gramosProteina, $caloriasProteina, $caloriasTotales);
+
 
 		return $valores;
 
@@ -39,11 +55,25 @@ class Macronutrientes {
 
 
 	//Aqui obtengo los Carbohidratos
-	private function getCarbohidratos($caloriasProteina){
+	private function getCarbohidratos($caloriasTotales, $mode = NULL){
 
-		$caloriasCarbohidratos = $caloriasProteina * 0.4;
+		$caloriasCarbohidratos = $caloriasTotales * 0.4;
 
 		$grCarbohidratos = $caloriasCarbohidratos/4;
+
+
+		//Si Modo sera Aumento de Peso
+		if($mode == 'AUMENTO'){
+			$caloriasTotales  		+= 500;
+			$caloriasCarbohidratos  =  $caloriasTotales * 0.4;
+			$grCarbohidratos  		=  $caloriasCarbohidratos/4;
+
+		}else if($mode == 'PERDIDA'){
+
+			$caloriasTotales  -= 500;
+			$caloriasCarbohidratos  =  $caloriasTotales * 0.4;
+			$grCarbohidratos  		=  $caloriasCarbohidratos/4;
+		}		
 
 		$valores = array($grCarbohidratos, $caloriasCarbohidratos);
 
@@ -54,11 +84,25 @@ class Macronutrientes {
 
 
 	//Calculando la insgesta de Grasas
-	private function getGrasas($caloriasProteina){
+	private function getGrasas($caloriasTotales, $mode){
 
-		$caloriasGrasas = $caloriasProteina * 0.3;
+		$caloriasGrasas = $caloriasTotales * 0.3;
 
 		$grGrasas = $caloriasGrasas / 9;
+
+			//Si Modo sera Aumento de Peso
+			if($mode == 'AUMENTO'){
+				$caloriasTotales  += 500;
+				$caloriasGrasas	  =  $caloriasTotales * 0.30;
+				$grGrasas  		  =  $caloriasGrasas/9;
+
+			}else if($mode == 'PERDIDA'){
+
+				$caloriasTotales  -= 500;
+				$caloriasGrasas	  =  $caloriasTotales * 0.30;
+				$grGrasas  		  =  $caloriasGrasas/9;
+			}	
+
 
 		$valores = array($grGrasas, $caloriasGrasas);
 
