@@ -6,8 +6,8 @@ class Macronutrientes {
 	public function getMacronutrientes($peso, $mode = NULL){
 
 		$Proteinas 		= 	$this->getProteinas($peso, $mode);
-		$Carbohidratos 	= 	$this->getCarbohidratos($Proteinas[2], $mode);
-		$Grasas 		= 	$this->getGrasas($Proteinas[2], $mode);
+		$Carbohidratos 	= 	$this->getCarbohidratos($Proteinas[3], $mode);
+		$Grasas 		= 	$this->getGrasas($Proteinas[3], $mode);
 
 
 		$valores = array('grProteinas'=>$Proteinas[0], 'calProteinas'=>$Proteinas[1], 'caloriasTotales'=>$Proteinas[2],
@@ -15,11 +15,12 @@ class Macronutrientes {
 						 'grGrasas'=>$Grasas[0], 'calGrasas'=>$Grasas[1]);
 
 		return $valores;
+
 	}
 
 
 	//Calcular Proteinas
-	private function getProteinas($peso, $mode=NULL){
+	public function getProteinas($peso, $mode=NULL){
 
 		//Aqui me devuelve el peso en kilogramo
 		$pesoKilogramo = $this->convertirkg($peso);
@@ -28,27 +29,30 @@ class Macronutrientes {
 
 		//Aqui obtengo las calorias provenientes de proteinas
 		$caloriasProteina = $gramosProteina * 4;
-		
 		$caloriasTotales = $caloriasProteina / 0.30;
 
-		//Si Modo sera Aumento de Peso
-		if($mode == 'AUMENTO'){
-			$caloriasTotales  += 500;
-			$caloriasProteina =  $caloriasTotales * 0.30;
-			$gramosProteina	  =  $caloriasProteina/4;
+		//total de Calorias sin que pase por el aumento.
+		$Totals = $caloriasTotales;
+		
+		
+			//Si Modo sera Aumento de Peso
+			if($mode == 'AUMENTO'){
+				$caloriasTotales  += 500;
+				$caloriasProteina =  $caloriasTotales * 0.30;
+				$gramosProteina	  =  $caloriasProteina/4;
 
-		}else if($mode == 'PERDIDA'){
+			}else if($mode == 'PERDIDA'){
 
-			$caloriasTotales  -= 500;
-			$caloriasProteina =  $caloriasTotales * 0.30;
-			$gramosProteina	  =  $caloriasProteina/4;			
-		}
+				$caloriasTotales  -= 500;
+				$caloriasProteina =  $caloriasTotales * 0.30;
+				$gramosProteina	  =  $caloriasProteina/4;			
+			}
+		
+		
+		$valores = array($gramosProteina, $caloriasProteina, $caloriasTotales, $Totals);
 
 
-		$valores = array($gramosProteina, $caloriasProteina, $caloriasTotales);
-
-
-		return $valores;
+		return $valores; 
 
 	}
 

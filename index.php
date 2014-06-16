@@ -19,16 +19,18 @@
 
 			$PesoLb = filter_var($_POST['peso'], FILTER_SANITIZE_NUMBER_INT);
 
-				//Instanciarla
+				//Mantenimiento
 				$Obj = new Macronutrientes();
 				$Macro = $Obj->getMacronutrientes($PesoLb);
 
+				//Aumento
 				$ObjAumento 	= new Macronutrientes();
 				$MacroAumento	= $ObjAumento->getMacronutrientes($PesoLb, 'AUMENTO');
 
-
+				//Perdida
 				$ObjPerdida 	= new Macronutrientes();
 				$MacroPerdida	= $ObjPerdida->getMacronutrientes($PesoLb, 'PERDIDA');
+
 
 			?>
 
